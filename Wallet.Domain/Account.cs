@@ -8,30 +8,35 @@ public class Account
 
     public decimal Balance { get; private set; }
 
-    private readonly List<Transaction> _transaction;
+    private readonly List<Transaction> _transactions;
 
     public Account(string name)
     {
         Id = Guid.NewGuid();
         Name = name;
         Balance = 0;
-        _transaction = new List<Transaction>();
+        _transactions = new List<Transaction>();
     }
 
     public void AddIncome(Income income)
     {
-        _transactions.AddIncome(income);
+        _transactions.Add(income);
         Balance += income.Amount;
     }
 
     public void AddExpense(Expense expense)
     {
-        _transaction.AddExpense(expense);
+        if (expense.Amount > Balance)
+        {
+            throw new InvalidOperationException($"Недостатньо коштів на рахунку '{Name}'.");
+        }
+
+        _transactions.Add(expense);
         Balance -= expense.Amount;
     }
 
-    public IReadOnlyList<Transaction> GetTransaction()
+    public IReadOnlyList<Transaction> GetTransactions()
     {
-        return _transaction.AsReadOnly();
+        return _transactions.AsReadOnly();
     }
 }

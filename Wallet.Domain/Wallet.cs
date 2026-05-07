@@ -11,10 +11,10 @@ public class Wallet
         _categories = new List<Category>();
     }
 
-    public AddCategory(string name)
+    public void AddCategory(string name)
     {
         if (_categories.Any(c => c.Name.Equals(name, StringComparison.OrdinalIgnoreCase)))
-            throw new InvalidOperationExeption("Категорія з такою назвою вже існує.");
+            throw new InvalidOperationException("Категорія з такою назвою вже існує.");
 
         _categories.Add(new Category(name));
     }
@@ -26,25 +26,27 @@ public class Wallet
         category.Name = newName;
     }
 
+    public IReadOnlyList<Category> GetCategories() => _categories.AsReadOnly();
+
     public void AddAccount(string name)
     {
-        _accounts = _accounts.Add(new Account(name));
+        _accounts.Add(new Account(name));
     }
 
-    public void RemoveAccount(Guid Id)
+    public void RemoveAccount(Guid id)
     {
-        var account = _accounts.FirstOrDefault(a => a.Id == Id);
-        if (account != NULL) _accounts.Remove(account);
+        var account = _accounts.FirstOrDefault(a => a.Id == id);
+        if (account != null) _accounts.Remove(account);
     }
 
     public void UpdateAccount(Guid id, string newName)
     {
         var account = _accounts.FirstOrDefault(a => a.Id == id);
-        if (account == NULL) throw new KeyNotFoundException("Рахунок не знайдено");
+        if (account == null) throw new KeyNotFoundException("Рахунок не знайдено");
         account.Name = newName;
     }
 
-    public IReadOnlyList<Account> GetAccount() => _accounts.AsReadOnly();
+    public IReadOnlyList<Account> GetAccounts() => _accounts.AsReadOnly();
 
     public void Transfer(Guid fromId, Guid toId, decimal amount, Category category)
     {

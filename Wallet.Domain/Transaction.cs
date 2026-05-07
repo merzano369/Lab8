@@ -12,7 +12,7 @@ public abstract class Transaction : IFinancialRecord
     protected Transaction(decimal amount, Category category)
     {
         Id = Guid.NewGuid();
-        Name = name;
+        Amount = amount;
         TransactionCategory = category;
         Date = DateTime.Now;
     }
