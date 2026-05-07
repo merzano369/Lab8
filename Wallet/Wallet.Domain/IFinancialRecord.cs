@@ -5,8 +5,3 @@ public interface IFinancialRecord
     decimal Amount { get; set; }
     DateTime Date { get; set; }
 }
-
-public class Class1
-{
-
-}
