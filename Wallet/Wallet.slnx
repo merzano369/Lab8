@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="Wallet.Domain/Wallet.Domain.csproj" />
+  <Project Path="Wallet.UI/Wallet.UI.csproj" />
+</Solution>
